@@ -41,10 +41,9 @@ export type IndexRouteObject = OrigIndexRouteObject & {
 
 export type NonIndexRouteObject = TypedOmit<
   OrigNonIndexRouteObject,
-  'children' | 'path'
+  'children'
 > & {
   slug: string;
-  path: string;
   children?: RouteObject[];
 };
 
@@ -82,7 +81,10 @@ type PathFns<TRoute, TPath extends string = ''> = TRoute extends [
 ]
   ? PathFns<H, TPath> & PathFns<T, TPath>
   : TRoute extends NonIndexRouteObject
-  ? PathJoin<TPath, TRoute['path']> extends infer P extends string
+  ? PathJoin<
+      TPath,
+      TRoute['path'] extends string ? TRoute['path'] : ''
+    > extends infer P extends string
     ? PathFns<TRoute['children'], P> & PathFnFor<TRoute['slug'], P>
     : never
   : TRoute extends IndexRouteObject
