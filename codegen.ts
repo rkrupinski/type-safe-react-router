@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import ts from 'typescript';
 
 const SRC = './src/routes.tsx';
-const TARGET = './src/paths.tsx';
+const TARGET = './src/paths.ts';
 
 /**
  * Don't try this at home. This simply illustrates the idea and arguably
