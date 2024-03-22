@@ -76,10 +76,10 @@ type PathFnFor<S extends string, P extends string> = {
 };
 
 type PathFns<TRoute, TPath extends string = ''> = TRoute extends [
-  infer H,
-  ...rest: infer T,
+  infer THead,
+  ...rest: infer TTail,
 ]
-  ? PathFns<H, TPath> & PathFns<T, TPath>
+  ? PathFns<THead, TPath> & PathFns<TTail, TPath>
   : TRoute extends NonIndexRouteObject
   ? PathJoin<
       TPath,
